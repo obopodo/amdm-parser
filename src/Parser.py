@@ -35,13 +35,13 @@ class Parser:
         
     def _print_song_names(self, songs_list: ResultSet) -> None:
         for i, r in enumerate(songs_list):
-            print(i, r.contents[2].contents[0])
+            print(i, r.contents[0].contents[0], ' - ', r.contents[2].contents[0])
 
     def parse_search_page(self, page_content: bytes) -> ResultSet:
         page = BeautifulSoup(page_content, 'html.parser')
         songs_list = page.table.find_all('td', {'class': 'artist_name'})
         print(f'Found {len(songs_list)} songs:')
-        self._print_song_names(songs_list[:3])
+        self._print_song_names(songs_list)
         return songs_list
 
     def get_song_url_by_index(self, songs_list: ResultSet, index: int) -> str:
